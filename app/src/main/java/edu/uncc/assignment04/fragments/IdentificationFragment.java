@@ -84,14 +84,15 @@ public class IdentificationFragment extends Fragment {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String selectedButtonText = ((RadioButton)view.findViewById(((RadioGroup)view.findViewById(R.id.radioGroup)).getCheckedRadioButtonId())).getText().toString();
+                RadioButton selectedButton = view.findViewById(((RadioGroup)view.findViewById(R.id.radioGroup)).getCheckedRadioButtonId());
                 String name = ((EditText)view.findViewById(R.id.editTextName)).getText().toString();
                 String email = ((EditText)view.findViewById(R.id.editTextEmail)).getText().toString();
-                if( selectedButtonText.isEmpty() || name.isEmpty() || email.isEmpty()){
+                if( selectedButton == null || name.isEmpty() || email.isEmpty()){
                     Toast toast = Toast.makeText(getContext(), "Please enter a name, email, and select a role", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else {
+                    String selectedButtonText = selectedButton.getText().toString();
                     Response response = new Response(name, email, selectedButtonText);
                     Bundle savedInstanceState = new Bundle();
                     savedInstanceState.putSerializable("response", response);
